@@ -3,7 +3,7 @@ from langchain import hub
 from langchain.agents import Tool
 from langchain.agents import create_openai_tools_agent
 import os
-from estudantes import DadosDeEstudante, PerfilAcademico
+from estudante import DadosDeEstudante, PerfilAcademico
 
 class AgenteOpenAIFunctions:
     def __init__(self):
