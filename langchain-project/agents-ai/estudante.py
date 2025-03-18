@@ -28,23 +28,26 @@ class DadosDeEstudante(BaseTool):
     Passe para essa ferramenta como argumento o nome do estudante."""
 
     def _run(self, input: str) -> str:
-        # llm = ChatOpenAI(
-        #     model="gpt-3.5-turbo",
-        #     api_key=os.getenv("OPENAI_API_KEY"))
+        llm = ChatOpenAI(
+            model="gpt-3.5-turbo",
+            api_key=os.getenv("OPENAI_API_KEY"))
         
-        # parser = JsonOutputParser(pydantic_object=ExtratorDeEstudante)
+        parser = JsonOutputParser(pydantic_object=ExtratorDeEstudante)
 
-        # template = PromptTemplate(template="""Você deve analisar a {input} e extrair o nome de usuário informado.
-        #                Formato de saída 
-        #                {formato_saida}""",
-        #                input_variables=["input"],
-        #                partial_variables={"formato_saida" : parser.get_format_instructions()})
+        template = PromptTemplate(template="""Você deve analisar a entrada a seguir e extrair o nome informado em minúsculo.
+                       Entrada: 
+                       ----------------------
+                       {input}           
+                       Formato de saída 
+                       {formato_saida}""",
+                       input_variables=["input"],
+                       partial_variables={"formato_saida" : parser.get_format_instructions()})
         
-        # cadeia = template | llm | parser
-        # resposta = cadeia.invoke({"input": input})
-        # estudante = resposta['estudante']
-        estudante = input
-        estudante = estudante.lower()
+        cadeia = template | llm | parser
+        resposta = cadeia.invoke({"input": input})
+        estudante = resposta['estudante']
+        # estudante = input
+        estudante = estudante.lower().strip()
         dados = buscar_dados_estudante(estudante)
         return json.dumps(dados)
 
