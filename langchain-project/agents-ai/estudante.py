@@ -19,7 +19,7 @@ def buscar_dados_estudante(estudante):
     return dados_com_esse_estudante.iloc[:1].to_dict()
 
 class ExtratorDeEstudante(BaseModel):
-    estudante:str = Field("Nome do estudante informado, sempre em letras minúsculas. Exemplo: joão, carlos, joana, carla")
+    estudante:str = Field("Nome do estudante informado, sempre em letras minúsculas. Exemplo: joão, joana, carla")
 
 
 class DadosDeEstudante(BaseTool):
