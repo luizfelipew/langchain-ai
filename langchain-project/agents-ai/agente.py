@@ -4,7 +4,7 @@ from langchain.agents import Tool
 from langchain.agents import create_openai_tools_agent, create_react_agent
 import os
 from estudante import DadosDeEstudante, PerfilAcademico
-from universidade import DadosDeUniversidade
+from universidade import DadosDeUniversidade, TodasUniversidades
 
 class AgenteOpenAIFunctions:
     def __init__(self):
@@ -14,17 +14,24 @@ class AgenteOpenAIFunctions:
         dados_de_estudante = DadosDeEstudante()
         perfil_academico = PerfilAcademico()
         dados_da_universidade = DadosDeUniversidade()
+        todas_universidades = TodasUniversidades()
         self.tools = [
             Tool(name = dados_de_estudante.name,
                  func = dados_de_estudante.run,
                  description = dados_de_estudante.description,
                  return_direct= False),
+                 
             Tool(name = perfil_academico.name,
                  func = perfil_academico.run,
                  description = perfil_academico.description),
+
             Tool(name = dados_da_universidade.name,
                  func = dados_da_universidade.run,
-                 description = dados_da_universidade.description)
+                 description = dados_da_universidade.description),
+
+            Tool(name = todas_universidades.name,
+                 func = todas_universidades.run,
+                 description = todas_universidades.description)
         ]
 
         # criar agente openapi functions

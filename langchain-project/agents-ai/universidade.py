@@ -19,7 +19,7 @@ def buscar_dados_da_universidade(universidade: str):
         return {}
     return dados_com_essa_universidade.iloc[:1].to_dict()
 
-def buscar_dados_da_universidades():
+def busca_dados_das_universidades():
     dados = pd.read_csv("agents-ai/documentos/universidades.csv")
     return dados.to_dict()
 
@@ -54,8 +54,9 @@ class DadosDeUniversidade(BaseTool):
         return json.dumps(dados)
     
 class TodasUniversidades(BaseTool):
-    name = "TodasUniversidades"
-    description = """Carrega os dados de todas as universidades. Não é necessário nenhum parâmetro de entrada."""
-    def _run(self, input: str):
-        universidades = buscar_dados_da_universidades()
-        return json.dumps(universidades)
+    name="TodasUniversidades"
+    description="""Carrega os dados de todas as universidades. Não é necessário nenhum parâmetro de entrada."""
+    
+    def _run(self, input:str):
+        universidades = busca_dados_das_universidades()
+        return universidades
